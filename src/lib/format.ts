@@ -1,12 +1,14 @@
-export function formatPrice(value: number, currency = "USD") {
+export function formatPrice(value: number, currency = "CNY") {
+  const digits = value < 10 ? 3 : 2;
   try {
     return new Intl.NumberFormat("zh-CN", {
       style: "currency",
       currency,
-      maximumFractionDigits: value >= 1000 ? 2 : 2,
+      minimumFractionDigits: digits,
+      maximumFractionDigits: digits,
     }).format(value);
   } catch {
-    return value.toFixed(2);
+    return value.toFixed(digits);
   }
 }
 

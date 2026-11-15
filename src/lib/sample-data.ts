@@ -15,16 +15,16 @@ function synth(
     const drift = Math.sin((i + seed) / 9) * 0.012 + Math.cos((i + seed) / 17) * 0.006;
     const noise = ((Math.sin(i * 12.9898 + seed) * 43758.5453) % 1) * 0.01 - 0.005;
     const open = price;
-    const close = Math.max(1, open * (1 + drift + noise));
+    const close = Math.max(0.01, open * (1 + drift + noise));
     const high = Math.max(open, close) * (1 + Math.abs(noise));
     const low = Math.min(open, close) * (1 - Math.abs(noise));
     candles.push({
       time: t,
-      open: +open.toFixed(2),
-      high: +high.toFixed(2),
-      low: +low.toFixed(2),
-      close: +close.toFixed(2),
-      volume: Math.floor(8_000_000 + Math.abs(Math.sin(i + seed)) * 12_000_000),
+      open: +open.toFixed(3),
+      high: +high.toFixed(3),
+      low: +low.toFixed(3),
+      close: +close.toFixed(3),
+      volume: Math.floor(1_000_000 + Math.abs(Math.sin(i + seed)) * 8_000_000),
     });
     price = close;
     t += 86400;
@@ -38,8 +38,8 @@ function synth(
       price: last,
       change: last - prev,
       changePercent: ((last - prev) / prev) * 100,
-      currency: symbol.includes(".SS") || symbol.includes(".HK") ? (symbol.includes(".HK") ? "HKD" : "CNY") : "USD",
-      exchange: "Sample",
+      currency: "CNY",
+      exchange: symbol.endsWith(".OF") ? "场外基金" : symbol.endsWith(".SH") ? "沪市" : "深市",
     },
     candles,
     source: "sample",
@@ -47,12 +47,12 @@ function synth(
 }
 
 export const SAMPLE_CHARTS: Record<string, ChartPayload> = {
-  AAPL: synth("AAPL", "Apple Inc.", 220, 1),
-  NVDA: synth("NVDA", "NVIDIA Corporation", 120, 2),
-  TSLA: synth("TSLA", "Tesla, Inc.", 240, 3),
-  MSFT: synth("MSFT", "Microsoft Corporation", 410, 4),
-  "0700.HK": synth("0700.HK", "Tencent Holdings", 380, 5),
-  BABA: synth("BABA", "Alibaba Group", 90, 6),
-  "600519.SS": synth("600519.SS", "贵州茅台", 1480, 7),
-  SPY: synth("SPY", "SPDR S&P 500 ETF", 560, 8),
+  "600519.SH": synth("600519.SH", "贵州茅台", 1480, 1),
+  "300750.SZ": synth("300750.SZ", "宁德时代", 220, 2),
+  "000001.SZ": synth("000001.SZ", "平安银行", 12, 3),
+  "601318.SH": synth("601318.SH", "中国平安", 55, 4),
+  "510300.SH": synth("510300.SH", "沪深300ETF", 4.2, 5),
+  "159915.SZ": synth("159915.SZ", "创业板ETF", 2.1, 6),
+  "110022.OF": synth("110022.OF", "易方达消费行业股票", 2.9, 7),
+  "161725.OF": synth("161725.OF", "招商中证白酒指数", 0.8, 8),
 };

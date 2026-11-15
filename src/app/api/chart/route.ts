@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { fetchChart } from "@/lib/yahoo";
+import { fetchChart } from "@/lib/market";
 import { normalizeSymbol, type RangeKey, RANGES } from "@/lib/symbols";
 
 export async function GET(req: NextRequest) {

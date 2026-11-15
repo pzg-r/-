@@ -9,7 +9,7 @@ import { formatPct, formatPrice, formatSigned } from "@/lib/format";
 import { useWatchlist } from "@/hooks/useWatchlist";
 
 export function Analyzer() {
-  const [symbol, setSymbol] = useState("AAPL");
+  const [symbol, setSymbol] = useState("600519.SH");
   const [range, setRange] = useState<RangeKey>("3mo");
   const [query, setQuery] = useState("");
   const [hits, setHits] = useState<SearchHit[]>([]);
@@ -82,16 +82,16 @@ export function Analyzer() {
         <div className="hero-content">
           <p className="brand">潮尺</p>
           <h1 className="tagline">把行情量一量</h1>
-          <p className="lede">搜代码、看走势、读短线技术面——为手机设计的股票分析。</p>
+          <p className="lede">专注 A 股与基金：搜代码、看走势、读短线技术面。</p>
 
           <div className="search-block">
             <label className="sr-only" htmlFor="symbol-search">
-              搜索股票
+              搜索 A 股或基金
             </label>
             <input
               id="symbol-search"
               className="search-input"
-              placeholder="输入代码或名称，如 AAPL / 腾讯 / 茅台"
+              placeholder="输入代码或名称，如 茅台 / 510300 / 易方达"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               autoComplete="off"
@@ -104,7 +104,7 @@ export function Analyzer() {
                     <button type="button" onClick={() => selectSymbol(hit.symbol)}>
                       <span className="hit-sym">{hit.symbol}</span>
                       <span className="hit-name">{hit.name}</span>
-                      <span className="hit-ex">{hit.exchange}</span>
+                      <span className="hit-ex">{hit.type || hit.exchange}</span>
                     </button>
                   </li>
                 ))}
@@ -195,7 +195,7 @@ export function Analyzer() {
               ))}
             </ul>
             <p className="disclaimer">
-              仅供参考，不构成投资建议。涨跌色按 A 股习惯：红涨绿跌。
+              仅供参考，不构成投资建议。覆盖沪深京 A 股、场内 ETF 与场外基金净值；红涨绿跌。
             </p>
           </section>
         )}
@@ -216,7 +216,7 @@ export function Analyzer() {
 
       <footer className="site-foot">
         <span>潮尺 Tidegauge</span>
-        <span>数据来自公开行情接口</span>
+        <span>A 股 · 基金 · 公开行情</span>
       </footer>
     </div>
   );

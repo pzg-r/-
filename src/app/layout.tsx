@@ -24,8 +24,8 @@ const mono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "潮尺 — 股票分析",
-  description: "手机上的股票分析：行情、K 线、均线与短线技术面速读。",
+  title: "潮尺 — A股与基金分析",
+  description: "手机上的 A 股与基金分析：行情、K 线 / 净值、均线与短线技术面速读。",
   applicationName: "潮尺",
 };
 
